@@ -1,7 +1,54 @@
 
-import math
 import numpy as np
+import math
 
+
+def luDecomposition(mat, n):
+
+	lower = [[0 for x in range(n)]
+			for y in range(n)]
+	upper = [[0 for x in range(n)]
+			for y in range(n)]
+
+	#Decomposition de la matrice vers triangulaire inf & sup
+	for i in range(n):
+
+		#triangulaire sup U
+		for k in range(i, n):
+
+			sum = 0
+			for j in range(i):
+				sum += (lower[i][j] * upper[j][k])
+
+			upper[i][k] = matrix_a[i][k] - sum
+
+		#triangulaire inf L
+		for k in range(i, n):
+			if (i == k):
+				lower[i][i] = 1 #mettre la diagonale a 1
+			else:
+
+				sum = 0
+				for j in range(i):
+					sum += (lower[k][j] * upper[j][i])
+
+				lower[k][i] = int((matrix_a[k][i] - sum) /upper[i][i])
+
+	
+	print("Triangulaire inf\tTriangulaire sup")
+
+	#Affichage
+	for i in range(n):
+
+		#L
+		for j in range(n):
+			print(lower[i][j], end="\t")
+		print("", end="\t")
+
+		#U
+		for j in range(n):
+			print(upper[i][j], end="\t")
+		print("")
 
 def Cholesky_Decomposition(matrix, n):
  
@@ -38,10 +85,13 @@ def Cholesky_Decomposition(matrix, n):
         for j in range(n):
             print(lower[j][i], end = "\t")
         print("")
- 
+
 #main
+
+
 answer = "o"
 while(answer=="o" or answer=="O"):
+    D = int(input("\n\t\tQuel decomposition voulez vous essayé ?\n\t\t1. LU\n\t\t2. Cholesky\n"))
     bool=True
     print("\nDonner le nombre de lignes=collonnes de votre matrice\n")
     while bool:  
@@ -72,9 +122,11 @@ while(answer=="o" or answer=="O"):
                             print("Svp saissiez un nombre\n")
                             bool=True
                 bool=True      
+    if D==1:
+       luDecomposition(matrix_a, n)
+    else:
+       Cholesky_Decomposition(matrix_a, n)
 
 
-    Cholesky_Decomposition(matrix_a, n)
-    answer = input("\n>Voulez vous echelonner une autre matrice ? ( o/n )")    
+    answer = input("\n>Voulez vous decomposé une autre matrice ? ( o/n )")    
 
- 
