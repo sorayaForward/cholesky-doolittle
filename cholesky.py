@@ -2,51 +2,43 @@
 import math
 import numpy as np
 
-MAX = 100
- 
 def Cholesky_Decomposition(matrix, n):
  
     lower = [[0 for x in range(n + 1)]
                 for y in range(n + 1)]
  
-    # Decomposing a matrix
-    # into Lower Triangular
+    #Decomposer la matrice vers triangulaire inferieur
+    
     for i in range(n):
         for j in range(i + 1):
             sum1 = 0
  
-            # summation for diagonals
+            #sommer la diagonale
             if (j == i):
                 for k in range(j):
                     sum1 += pow(lower[j][k], 2)
                 lower[j][j] = int(math.sqrt(matrix_a[j][j] - sum1))
             else:
-                 
-                # Evaluating L(i, j)
-                # using L(j, j)
                 for k in range(j):
-                    sum1 += (lower[i][k] *lower[j][k]);
+                    sum1 += (lower[i][k] *lower[j][k])
                 if(lower[j][j] > 0):
-                    lower[i][j] = int((matrix_a[i][j] - sum1) /
-                                               lower[j][j]);
+                    lower[i][j] = int((matrix_a[i][j] - sum1) / lower[j][j])
  
-    # Displaying Lower Triangular
-    # and its Transpose
-    print("Lower Triangular\t\tTranspose");
+    # Affichage de L et sa transposé
+    print("Triangulaire Inferieur Rt\tTranspose R")
     for i in range(n):
          
-        # Lower Triangular
+        #L
         for j in range(n):
-            print(lower[i][j], end = "\t");
-        print("", end = "\t");
+            print(lower[i][j], end = "\t")
+        print("", end = "\t")
          
-        # Transpose of
-        # Lower Triangular
+        #Transposé de L
         for j in range(n):
-            print(lower[j][i], end = "\t");
+            print(lower[j][i], end = "\t")
         print("")
  
-# Driver Code
+#main
 answer = "o"
 while(answer=="o" or answer=="O"):
     bool=True
@@ -82,7 +74,6 @@ while(answer=="o" or answer=="O"):
 
 
     Cholesky_Decomposition(matrix_a, n)
-answer = input("\n>Voulez vous echelonner une autre matrice ? ( o/n )")    
+    answer = input("\n>Voulez vous echelonner une autre matrice ? ( o/n )")    
 
  
-# This code is contributed by mits
